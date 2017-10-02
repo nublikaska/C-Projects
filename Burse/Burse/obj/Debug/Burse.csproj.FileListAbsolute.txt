@@ -95,7 +95,6 @@ E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignColors.dll
 E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignThemes.Wpf.dll
 E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignThemes.Wpf.pdb
 E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignThemes.Wpf.xml
-E:\C# Projects\Burse\Burse\obj\Debug\Burse.csprojResolveAssemblyReference.cache
 E:\C# Projects\Burse\Burse\obj\Debug\MainWindow.g.cs
 E:\C# Projects\Burse\Burse\obj\Debug\Page1.g.cs
 E:\C# Projects\Burse\Burse\obj\Debug\Page2.g.cs
@@ -117,3 +116,4 @@ E:\C# Projects\Burse\Burse\obj\Debug\Burse.Properties.Resources.resources
 E:\C# Projects\Burse\Burse\obj\Debug\Burse.csproj.GenerateResource.Cache
 E:\C# Projects\Burse\Burse\obj\Debug\Burse.exe
 E:\C# Projects\Burse\Burse\obj\Debug\Burse.pdb
+E:\C# Projects\Burse\Burse\obj\Debug\Burse.csprojResolveAssemblyReference.cache

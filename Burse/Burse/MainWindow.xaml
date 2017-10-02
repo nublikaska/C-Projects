@@ -17,21 +17,20 @@
      Title = "Биржа" Height="500" Width="809"  ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBlock Text="Последняя сделка" Margin="10,73,613,360" TextAlignment="Center" TextWrapping="Wrap" Width="180" FontSize="18" />
-        <Button Name="Refresh" Style="{DynamicResource MaterialDesignFloatingActionMiniButton}"                   
-                    materialDesign:ShadowAssist.ShadowDepth="Depth1" Margin="80,0,0,25" FontSize="28" Height="40" Width="40" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="Refresh_Click">⟳</Button>
-        <StackPanel HorizontalAlignment="Left" Height="124" Margin="20,116,0,0" VerticalAlignment="Top" Width="161">
+            <StackPanel HorizontalAlignment="Left" Height="124" Margin="20,116,0,0" VerticalAlignment="Top" Width="161">
             <TextBlock Text="Сбербанк" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="18" TextWrapping="Wrap"/>
             <TextBlock x:Name="TextBlockSber" TextWrapping="Wrap" VerticalAlignment="Top" Height="54" FontSize="48" TextAlignment="Center" Foreground="#FF212121"/>
             <TextBlock Text="RUB, ₽" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="17"/>
             <TextBlock Text="Количество акций" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="15"/>
             <TextBlock Name="VolSber"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="21" TextWrapping="Wrap"/>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" Height="124" Margin="20,252,0,0" VerticalAlignment="Top" Width="161">
+        <StackPanel HorizontalAlignment="Left" Height="160" Margin="20,252,0,0" VerticalAlignment="Top" Width="161">
             <TextBlock Text="Газпром" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="18" TextWrapping="Wrap"/>
             <TextBlock x:Name="TextBlockGazp" TextWrapping="Wrap" VerticalAlignment="Top" Height="54" FontSize="48" TextAlignment="Center" Foreground="#FF212121"/>
             <TextBlock Text="RUB, ₽" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="17"/>
             <TextBlock Text="Количество акций" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="15"/>
             <TextBlock Name="VolGazp" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="21" TextWrapping="Wrap"/>
+            <TextBlock x:Name="LastReload" Text="Последнее обновление:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="35"/>
         </StackPanel>
         
 

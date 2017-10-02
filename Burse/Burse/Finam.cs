@@ -4,14 +4,19 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+using System.Windows.Threading;
 
 namespace Burse
 {
     class Finam
     {
-        private string date;
+        private DatePicker TempFrom;
+        private static Boolean key = true;
         private string connection;
         private string from;
         private string df;
@@ -29,6 +34,11 @@ namespace Burse
         private string datf;
 
         private string f { get; set; }
+
+        public Finam()
+        {
+            TempFrom = new DatePicker();
+        }
 
         private void SetDatf(string datf)
         {
@@ -91,21 +101,7 @@ namespace Burse
             this.cn = cn;
         }
 
-        private Boolean Download()
-        {
-            WebClient wb = new WebClient();
-            try
-            {
-                wb.DownloadFile(connection, "statistic.txt");
-                return true;
-            }
-            catch (WebException e)
-            {
-                return false;
-            }
-        }
-
-        private string GetItem(string tick, int numberItem)
+        public string GetItem(string tick, int numberItem)
         {
             try
             {
@@ -115,22 +111,22 @@ namespace Burse
             catch { return "error"; }
         }
 
-        public string GetTransactionForDay(String Date, String Ticker, String ReturnVolOrCount)
+        public string[] GetTransactionForDay(String Date, String Ticker, String ReturnVolOrCount)
         {
             Double result = 0;
             Double count = 0;
 
-            if (Ticker == "RadioButtonGazprom")
+            if (Ticker == "GAZP")
                 SetEm_code_cn("&em=16842", "&code=GAZP", "&cn=GAZP");
             else
                 SetEm_code_cn("&em=3", "&code=SBER", "&cn=SBER");
             SetP("1");
             SetDatf("12");
-            SetFrom(Date.Substring(0, 2), Date.Substring(3, 2), Date.Substring(6));
-            SetTo(Date.Substring(0, 2), Date.Substring(3, 2), Date.Substring(6));
+            SetFrom(Date.Substring(0, 2), Date.Substring(3, 2), Date.Substring(6, 4));
+            SetTo(Date.Substring(0, 2), Date.Substring(3, 2), Date.Substring(6, 4));
             SetConnection();
 
-            Download();
+            DownLoadFinam download = new DownLoadFinam(connection, "statistic.txt", ++DownLoadFinam.Count);
 
             FileStream file1 = new FileStream("statistic.txt", FileMode.Open);
             StreamReader reader = new StreamReader(file1);
@@ -144,16 +140,18 @@ namespace Burse
 
             if (count > 0)
             {
-                Double res = result / count;
+                Double vol = result / count;
                 if (ReturnVolOrCount == "Vol")
-                    return res.ToString("G17");
+                    return new string[] { vol.ToString() };
                 else if (ReturnVolOrCount == "Count")
-                    return count.ToString();
+                    return new string[] { count.ToString() };
+                else if (ReturnVolOrCount == "VolAndCount")
+                    return new string[] { vol.ToString(), count.ToString() };
             }
             else
-                return "error";
+                return new string[] { "error" };
 
-            return "error";
+            return new string[] { "error" };
         }
 
         public string[] Compare(String Date1, String Date2, String Ticker)
@@ -163,7 +161,7 @@ namespace Burse
 
             try
             {
-                before = Convert.ToInt32(GetTransactionForDay(Date1, Ticker, "Vol"));
+                before = Convert.ToInt32(GetTransactionForDay(Date1, Ticker, "Vol")[0]);
             }
             catch (Exception e)
             {
@@ -172,7 +170,7 @@ namespace Burse
 
             try
             {
-                today = Convert.ToInt32(GetTransactionForDay(Date2, Ticker, "Vol"));
+                today = Convert.ToInt32(GetTransactionForDay(Date2, Ticker, "Vol")[0]);
             }
             catch (Exception e)
             {
@@ -189,26 +187,29 @@ namespace Burse
 
         public string AverageForPeriod(DatePicker DateFrom, DatePicker DateTo, String Ticker)
         {
-            Double Summ = 0;
+            DatePicker TempFrom = new DatePicker();
+            TempFrom.SelectedDateFormat = DatePickerFormat.Long;
+            TempFrom.SelectedDate = DateFrom.SelectedDate;
+            int Summ = 0;
             string temp = "";
             Double Count = 0;
 
-            while (DateFrom.Text != DateTo.Text)
+            while (TempFrom.SelectedDate != DateTo.SelectedDate)
             {
-                temp = GetTransactionForDay(DateFrom.Text, Ticker, "Count");
+                temp = GetTransactionForDay(TempFrom.SelectedDate.ToString(), Ticker, "Count")[1];
                 if (temp != "error")
                 {
                     Summ += Convert.ToInt32(temp);
                     Count++;
                 }
 
-                DateFrom.SelectedDate = DateFrom.SelectedDate.Value.AddDays(1);
+                TempFrom.SelectedDate = TempFrom.SelectedDate.Value.AddDays(1);
             }
 
-            temp = GetTransactionForDay(DateFrom.Text, Ticker, "Count");
+            temp = GetTransactionForDay(TempFrom.SelectedDate.ToString(), Ticker, "Count")[1];
             if (temp != "error")
             {
-                Summ += Convert.ToDouble(temp);
+                Summ += Convert.ToInt32(temp);
                 Count++;
             }
 
@@ -218,23 +219,26 @@ namespace Burse
 
         public string AverageVolForPeriod(DatePicker DateFrom, DatePicker DateTo, String Ticker)
         {
+            DatePicker TempFrom = new DatePicker();
+            TempFrom.SelectedDateFormat = DatePickerFormat.Long;
+            TempFrom.SelectedDate = DateFrom.SelectedDate;
             Double Summ = 0;
             string temp = "";
             Double Count = 0;
 
-            while (DateFrom.Text != DateTo.Text)
+            while (TempFrom.SelectedDate != DateTo.SelectedDate)
             {
-                temp = GetTransactionForDay(DateFrom.Text, Ticker, "Vol");
+                temp = GetTransactionForDay(TempFrom.SelectedDate.ToString(), Ticker, "Vol")[0];
                 if (temp != "error")
                 {
                     Summ += Convert.ToDouble(temp);
                     Count++;
                 }
 
-                DateFrom.SelectedDate = DateFrom.SelectedDate.Value.AddDays(1);
+                TempFrom.SelectedDate = TempFrom.SelectedDate.Value.AddDays(1);
             }
 
-            temp = GetTransactionForDay(DateFrom.Text, Ticker, "Vol");
+            temp = GetTransactionForDay(TempFrom.SelectedDate.ToString(), Ticker, "Vol")[0];
             if (temp != "error")
             {
                 Summ += Convert.ToDouble(temp);
@@ -242,13 +246,63 @@ namespace Burse
             }
 
             Double res = Summ / Count;
-            return res.ToString("G17");
+            return res.ToString();
+        }
+
+        public string[] AverageVolAndCountForPeriod(String DateFrom, String DateTo, String Ticker)
+        {
+            Double SummVol = 0;
+            int SummCount = 0;
+            string[] temp = { "", "" };
+            Double Count = 0;
+
+            TempFrom.Dispatcher.Invoke(new Action(() =>
+            {
+                TempFrom.SelectedDateFormat = DatePickerFormat.Long;
+                TempFrom.Text = DateFrom;
+            }));
+
+            while (DateFrom != DateTo)
+            {
+                temp = GetTransactionForDay(DateFrom, Ticker, "VolAndCount");
+
+                if (temp[0] != "error")
+                {
+                    SummVol += Convert.ToDouble(temp[0]);
+                    SummCount += Convert.ToInt32(temp[1]);
+                    Count++;
+                }
+
+                TempFrom.Dispatcher.Invoke(new Action(() =>
+                {
+                    TempFrom.SelectedDate = TempFrom.SelectedDate.Value.AddDays(1);
+                    DateFrom = TempFrom.SelectedDate.Value.ToShortDateString();
+                }));
+            }
+
+            temp = GetTransactionForDay(DateFrom, Ticker, "VolAndCount");
+            if (temp[0] != "error")
+            {
+                SummVol += Convert.ToDouble(temp[0]);
+                SummCount += Convert.ToInt32(temp[1]);
+                Count++;
+            }
+
+            if (Count > 0)
+            {
+                Double resVol = SummVol / Count;
+                Double resCount = SummCount / Count;
+                temp[0] = resVol.ToString();
+                temp[1] = resCount.ToString();
+            }
+            return temp;
         }
 
         public String[] GetMaxMinForDay(String Date, String TimeFrom, String TimeTo, String Ticker)
         {
-            Double resultMax;
-            Double resultMin;
+            Double resultMax = 0;
+            Double resultMin = 0;
+            int count = 0;
             string currentStr;
 
             if (Ticker == "SBER")
@@ -261,33 +315,42 @@ namespace Burse
             SetTo(Date.Substring(0, 2), Date.Substring(3, 2), Date.Substring(6, 4));
             SetConnection();
 
-            Download();
+            DownLoadFinam download = new DownLoadFinam(connection, "statistic.txt", ++DownLoadFinam.Count);
 
             FileStream file1 = new FileStream("statistic.txt", FileMode.Open);
             StreamReader reader = new StreamReader(file1);
 
-            currentStr = reader.ReadLine();
-            resultMax = Convert.ToDouble(GetItem(currentStr, 3).Replace('.', ','));
-            resultMin = Convert.ToDouble(GetItem(currentStr, 4).Replace('.', ','));
+            currentStr = reader.ReadLine();            
 
             while ( (!reader.EndOfStream) && 
-                    (Convert.ToInt32(GetItem(currentStr, 1)) > Convert.ToInt32(TimeTo.Replace(":", ""))) && 
-                    (Convert.ToInt32(GetItem(currentStr, 1)) > Convert.ToInt32(TimeTo.Replace(":", "")))
+                    (Convert.ToInt32(GetItem(currentStr, 1)) < Convert.ToInt32(TimeTo.Replace(":", "")))
                   )
             {
                 Double tempMax;
                 Double tempMin;
+                
                 currentStr = reader.ReadLine();
-                tempMax = Convert.ToDouble(GetItem(currentStr, 3).Replace('.', ','));
-                tempMin = Convert.ToDouble(GetItem(currentStr, 4).Replace('.', ','));
-                if (tempMax > resultMax)
-                    resultMax = tempMax;
-                if (tempMin < resultMin)
-                    resultMin = tempMin;
+                if (Convert.ToInt32(GetItem(currentStr, 1)) >= Convert.ToInt32(TimeFrom.Replace(":", "")))
+                {
+                    if (count == 0)
+                    {
+                        resultMax = Convert.ToDouble(GetItem(currentStr, 3).Replace('.', ','));
+                        resultMin = Convert.ToDouble(GetItem(currentStr, 4).Replace('.', ','));
+                    }
+
+                    tempMax = Convert.ToDouble(GetItem(currentStr, 3).Replace('.', ','));
+                    tempMin = Convert.ToDouble(GetItem(currentStr, 4).Replace('.', ','));
+
+                    if (tempMax > resultMax)
+                        resultMax = tempMax;
+                    if (tempMin < resultMin)
+                        resultMin = tempMin;
+                    count++;
+                }
             }
 
             reader.Close();
-            return new String[] {resultMax.ToString("G17"), resultMin.ToString("G17") };;
+            return new String[] {resultMax.ToString(), resultMin.ToString() };;
         }
 
         public String[] GetLastVolAndPrice(String Ticker)
@@ -309,26 +372,41 @@ namespace Burse
             SetTo(DateNow.Substring(0, 2), DateNow.Substring(3, 2), DateNow.Substring(6, 4));
             SetConnection();
 
-            Download();
+            DownLoadFinam download = new DownLoadFinam(connection, "LastStatistic.txt", ++DownLoadFinam.Count);
 
-            FileStream file1 = new FileStream("statistic.txt", FileMode.Open);
-            StreamReader reader = new StreamReader(file1);
+            FileStream file1 = new FileStream("LastStatistic.txt", FileMode.Open);
+                StreamReader reader = new StreamReader(file1);
 
-            currentStr = reader.ReadLine();
-            LastVol = GetItem(currentStr, 3);
-            LastPrice = GetItem(currentStr, 2);
-            BorS = GetItem(currentStr, 5);
-
-
-            while (!reader.EndOfStream)
                 currentStr = reader.ReadLine();
+                LastVol = GetItem(currentStr, 3);
+                LastPrice = GetItem(currentStr, 2);
+                BorS = GetItem(currentStr, 5);
 
-            LastVol = GetItem(currentStr, 3);
-            LastPrice = GetItem(currentStr, 2);
-            BorS = GetItem(currentStr, 5);
 
-            reader.Close();
-            return new String[] { LastPrice, LastVol, BorS };
+                while (!reader.EndOfStream)
+                    currentStr = reader.ReadLine();
+
+                LastVol = GetItem(currentStr, 3);
+                LastPrice = GetItem(currentStr, 2);
+                BorS = GetItem(currentStr, 5);
+
+                reader.Close();
+                return new String[] { LastPrice, LastVol, BorS };
+        }
+
+        public void DownLoadGraphic(String Date, String Ticker) // это нужно
+        {
+            if (Ticker == "SBER")
+                SetEm_code_cn("&em=3", "&code=SBER", "&cn=SBER");
+            else if (Ticker == "GAZP")
+                SetEm_code_cn("&em=16842", "&code=GAZP", "&cn=GAZP");
+            SetP("5");
+            SetDatf("5");
+            SetFrom(Date.Substring(0, 2), Date.Substring(3, 2), Date.Substring(6, 4));
+            SetTo(Date.Substring(0, 2), Date.Substring(3, 2), Date.Substring(6, 4));
+            SetConnection();
+
+            DownLoadFinam download = new DownLoadFinam(connection, Ticker, ++DownLoadFinam.Count);            
         }
     }
 }

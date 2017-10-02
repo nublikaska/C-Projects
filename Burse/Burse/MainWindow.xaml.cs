@@ -20,68 +20,62 @@ namespace Burse
     public partial class MainWindow:Window
     {
         Finam finam;
-        Thread newThread;
-        private delegate void NewDelegate(List<String> result);
+        String[] resultSber;
+        String[] resultGazp;
+        BackgroundWorker backgroundWorker;
+
+        public object Date { get; private set; }
 
         public MainWindow()
         {
             InitializeComponent();
+            Main.Content = new Page1();
             finam = new Finam();
-            newThread = new Thread(MethodByThread);
-            newThread.IsBackground = true;
-            newThread.Start();
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += new DoWorkEventHandler(DoWork);
+            backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(RunWorkerCompleted);
+            backgroundWorker.RunWorkerAsync();
         }
 
-        private void Refresh_Click(object sender, RoutedEventArgs e)
+        private void DoWork(object sender, DoWorkEventArgs e)
         {
-
+            e.Result = MethodByThread();
         }
 
-        private void MethodByThread()
+        private void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            String[] result;
-            NewDelegate newDelegate;
-            List<String> ListResult = new List<string>(); // priceSber volSber BorS_Sber priceGazp volGazp BorS_Gazp
-            while (true)
-            {
-                ListResult.Clear();
-                result = finam.GetLastVolAndPrice("SBER");
-                for (int i = 0; i < 3; i++)
-                    ListResult.Add(result[i]);
-                result = finam.GetLastVolAndPrice("GAZP");
-                for (int i = 3; i < 6; i++)
-                    ListResult.Add(result[i - 3]);
-                newDelegate = RefreshingSber;
-                newDelegate += RefreshingGazp;
-                if (!CheckAccess())
-                    Dispatcher.Invoke(newDelegate, ListResult);
-                else
-                {
-                    RefreshingSber(ListResult);
-                    RefreshingGazp(ListResult);
-                }
-
-                Thread.Sleep(5000);
-            }
+            RefreshingSber();
+            RefreshingGazp();
+            LastReload.Text = "Последнее обновление: \n" + DateTime.Now.ToShortTimeString();
+            backgroundWorker.Dispose();
+            backgroundWorker.RunWorkerAsync();
         }
 
-        private void RefreshingSber(List<String> result)
+        private bool MethodByThread()
         {
-            TextBlockSber.Text = result[0];
-            VolSber.Text = result[1];
-            if (result[2] == "B")
+            resultSber = finam.GetLastVolAndPrice("SBER");
+            resultGazp = finam.GetLastVolAndPrice("GAZP");
+            Thread.Sleep(5000);
+            return true;
+        }        
+
+        private void RefreshingSber()
+        {
+            TextBlockSber.Text = resultSber[0];
+            VolSber.Text = resultSber[1];
+            if (resultSber[2] == "B")
                 TextBlockSber.Foreground = System.Windows.Media.Brushes.Green;
-            else if (result[2] == "S")
+            else if (resultSber[2] == "S")
                 TextBlockSber.Foreground = System.Windows.Media.Brushes.Red;
         }
 
-        private void RefreshingGazp(List<String> result)
+        private void RefreshingGazp()
         {
-            TextBlockGazp.Text = result[3];
-            VolGazp.Text = result[4];
-            if (result[5] == "B")
+            TextBlockGazp.Text = resultGazp[0];
+            VolGazp.Text = resultGazp[1];
+            if (resultGazp[2] == "B")
                 TextBlockGazp.Foreground = System.Windows.Media.Brushes.Green;
-            else if (result[5] == "S")
+            else if (resultGazp[2] == "S")
                 TextBlockGazp.Foreground = System.Windows.Media.Brushes.Red;
         }
         private void HandleCheck(object sender, RoutedEventArgs e)
@@ -135,6 +129,5 @@ namespace Burse
             Сaption.Text = TelegramPage.Header.ToString();
             ToggleBut.IsChecked = false;
         }
-
     }
 }

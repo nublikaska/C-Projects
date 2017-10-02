@@ -11,24 +11,51 @@ using System.Windows;
 using System.IO;
 using System.Windows.Media.Animation;
 using System.Windows.Controls;
+using System.Threading;
 
 namespace Burse
 {
     public partial class Page3 : Page
     {
         private string currentTicker = "SBER";
+        Finam finam;
+        BackgroundWorker backgroundWorker;
+        String[] temp;
 
         public Page3()
         {
             InitializeComponent();
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += new DoWorkEventHandler(DoWork);
+            backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(RunWorkerCompleted);
+            finam = new Finam();
+            temp = new String[2];
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Finam finam = new Finam();
-            TextBlocks.Text = finam.AverageVolForPeriod(DatePickerFrom, DatePickerTo, currentTicker);
-            TextBlocks1.Text = finam.AverageForPeriod(DatePickerFrom, DatePickerTo, currentTicker);
+            temp[0] = DatePickerFrom.Text.ToString();
+            temp[1] = DatePickerTo.Text.ToString();
+            backgroundWorker.Dispose();
+            backgroundWorker.RunWorkerAsync();
         }
+        private void DoWork(object sender, DoWorkEventArgs e)
+        {
+            e.Result = MethodByThread();
+        }
+
+        private void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            TextBlocks.Text = temp[0];
+            TextBlocks1.Text = temp[1];
+        }
+
+        private bool MethodByThread()
+        {
+            temp = finam.AverageVolAndCountForPeriod(temp[0], temp[1], currentTicker);
+            return true;
+        }
+
         private void HandleUnchecked_Company(object sender, RoutedEventArgs e)
         {
             CompanyText.Text = "Сбербанк";

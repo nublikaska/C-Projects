@@ -20,18 +20,45 @@ namespace Burse
     public partial class Page2 : Page
     {
         private string currentTicker = "SBER";
-      
+        BackgroundWorker backgroundWorker;
+        String[] temp;
+        Finam finam;
+
+
         public Page2()
         {
             InitializeComponent();
+            finam = new Finam();
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += new DoWorkEventHandler(DoWork);
+            backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(RunWorkerCompleted);           
         }
-       
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Finam finam = new Finam();
-            String[] result = finam.GetMaxMinForDay(DatePicker.Text, TimePickerFrom.Text, TimePickerTo.Text, currentTicker);
-            TextBlockMax.Text = result[0];
-            TextBlockMin.Text = result[1];
+            temp = new String[3];
+            temp[0] = DatePicker.Text;
+            temp[1] = TimePickerFrom.Text;
+            temp[2] = TimePickerTo.Text;
+            if (!backgroundWorker.IsBusy)
+                backgroundWorker.RunWorkerAsync();
+        }
+
+        private void DoWork(object sender, DoWorkEventArgs e)
+        {            
+            e.Result = Method();
+        }
+
+        private void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            TextBlockMax.Text = temp[0];
+            TextBlockMin.Text = temp[1];
+        }        
+
+        private bool Method()
+        {
+            temp = finam.GetMaxMinForDay(temp[0], temp[1], temp[2], currentTicker);
+            return true;
         }
 
         private void HandleCheck_Company(object sender, RoutedEventArgs e)
