@@ -183,7 +183,7 @@ namespace Burse
                 return new string[] { today.ToString(), "=", before.ToString() };
         }
 
-        public string AverageForPeriod(ref DatePicker DateFrom, DatePicker DateTo, String Ticker)
+        public string AverageForPeriod(DatePicker DateFrom, DatePicker DateTo, String Ticker)
         {
             Double Summ = 0;
             string temp = "";
@@ -282,6 +282,7 @@ namespace Burse
                     resultMin = tempMin;
             }
 
+            reader.Close();
             return new String[] {resultMax.ToString("G17"), resultMin.ToString("G17") };;
         }
 
@@ -322,6 +323,7 @@ namespace Burse
             LastPrice = GetItem(currentStr, 2);
             BorS = GetItem(currentStr, 5);
 
+            reader.Close();
             return new String[] { LastPrice, LastVol, BorS };
         }
     }

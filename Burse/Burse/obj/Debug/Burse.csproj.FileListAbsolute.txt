@@ -30,38 +30,6 @@ C:\Users\Владимир\documents\visual studio 2017\Projects\Burse\Burse\obj\
 C:\Users\Владимир\documents\visual studio 2017\Projects\Burse\Burse\obj\Debug\Page5.baml
 C:\Users\Владимир\documents\visual studio 2017\Projects\Burse\Burse\obj\Debug\Page6.baml
 C:\Users\Владимир\documents\visual studio 2017\Projects\Burse\Burse\bin\Debug\MaterialDesignColors.pdb
-E:\C# Projects\Burse\Burse\bin\Debug\Burse.exe.config
-E:\C# Projects\Burse\Burse\bin\Debug\Burse.exe
-E:\C# Projects\Burse\Burse\bin\Debug\Burse.pdb
-E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignColors.dll
-E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignThemes.Wpf.dll
-E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignColors.pdb
-E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignThemes.Wpf.pdb
-E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignThemes.Wpf.xml
-E:\C# Projects\Burse\Burse\obj\Debug\Burse.csprojResolveAssemblyReference.cache
-E:\C# Projects\Burse\Burse\obj\Debug\MainWindow.g.cs
-E:\C# Projects\Burse\Burse\obj\Debug\Page1.g.cs
-E:\C# Projects\Burse\Burse\obj\Debug\Page2.g.cs
-E:\C# Projects\Burse\Burse\obj\Debug\Page3.g.cs
-E:\C# Projects\Burse\Burse\obj\Debug\Page4.g.cs
-E:\C# Projects\Burse\Burse\obj\Debug\Page5.g.cs
-E:\C# Projects\Burse\Burse\obj\Debug\Page6.g.cs
-E:\C# Projects\Burse\Burse\obj\Debug\App.g.cs
-E:\C# Projects\Burse\Burse\obj\Debug\Burse_MarkupCompile.cache
-E:\C# Projects\Burse\Burse\obj\Debug\Burse_MarkupCompile.lref
-E:\C# Projects\Burse\Burse\obj\Debug\App.baml
-E:\C# Projects\Burse\Burse\obj\Debug\MainWindow.baml
-E:\C# Projects\Burse\Burse\obj\Debug\Page1.baml
-E:\C# Projects\Burse\Burse\obj\Debug\Page2.baml
-E:\C# Projects\Burse\Burse\obj\Debug\Page3.baml
-E:\C# Projects\Burse\Burse\obj\Debug\Page4.baml
-E:\C# Projects\Burse\Burse\obj\Debug\Page5.baml
-E:\C# Projects\Burse\Burse\obj\Debug\Page6.baml
-E:\C# Projects\Burse\Burse\obj\Debug\Burse.g.resources
-E:\C# Projects\Burse\Burse\obj\Debug\Burse.Properties.Resources.resources
-E:\C# Projects\Burse\Burse\obj\Debug\Burse.csproj.GenerateResource.Cache
-E:\C# Projects\Burse\Burse\obj\Debug\Burse.exe
-E:\C# Projects\Burse\Burse\obj\Debug\Burse.pdb
 C:\Users\Владимир\Documents\Visual Studio 2015\Projects\Burse (2)\Burse\Burse\bin\Debug\Burse.exe.config
 C:\Users\Владимир\Documents\Visual Studio 2015\Projects\Burse (2)\Burse\Burse\obj\Debug\Burse.exe
 C:\Users\Владимир\Documents\Visual Studio 2015\Projects\Burse (2)\Burse\Burse\obj\Debug\Burse.pdb
@@ -120,3 +88,32 @@ C:\Users\Владимир\Documents\GitHub\C-Projects\Burse\Burse\obj\Debug\Page
 C:\Users\Владимир\Documents\GitHub\C-Projects\Burse\Burse\obj\Debug\Burse.g.resources
 C:\Users\Владимир\Documents\GitHub\C-Projects\Burse\Burse\obj\Debug\Burse.Properties.Resources.resources
 C:\Users\Владимир\Documents\GitHub\C-Projects\Burse\Burse\obj\Debug\Burse.csproj.GenerateResource.Cache
+E:\C# Projects\Burse\Burse\bin\Debug\Burse.exe.config
+E:\C# Projects\Burse\Burse\bin\Debug\Burse.exe
+E:\C# Projects\Burse\Burse\bin\Debug\Burse.pdb
+E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignColors.dll
+E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignThemes.Wpf.dll
+E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignThemes.Wpf.pdb
+E:\C# Projects\Burse\Burse\bin\Debug\MaterialDesignThemes.Wpf.xml
+E:\C# Projects\Burse\Burse\obj\Debug\Burse.csprojResolveAssemblyReference.cache
+E:\C# Projects\Burse\Burse\obj\Debug\MainWindow.g.cs
+E:\C# Projects\Burse\Burse\obj\Debug\Page1.g.cs
+E:\C# Projects\Burse\Burse\obj\Debug\Page2.g.cs
+E:\C# Projects\Burse\Burse\obj\Debug\Page3.g.cs
+E:\C# Projects\Burse\Burse\obj\Debug\Page4.g.cs
+E:\C# Projects\Burse\Burse\obj\Debug\Page6.g.cs
+E:\C# Projects\Burse\Burse\obj\Debug\App.g.cs
+E:\C# Projects\Burse\Burse\obj\Debug\Burse_MarkupCompile.cache
+E:\C# Projects\Burse\Burse\obj\Debug\Burse_MarkupCompile.lref
+E:\C# Projects\Burse\Burse\obj\Debug\App.baml
+E:\C# Projects\Burse\Burse\obj\Debug\MainWindow.baml
+E:\C# Projects\Burse\Burse\obj\Debug\Page1.baml
+E:\C# Projects\Burse\Burse\obj\Debug\Page2.baml
+E:\C# Projects\Burse\Burse\obj\Debug\Page3.baml
+E:\C# Projects\Burse\Burse\obj\Debug\Page4.baml
+E:\C# Projects\Burse\Burse\obj\Debug\Page6.baml
+E:\C# Projects\Burse\Burse\obj\Debug\Burse.g.resources
+E:\C# Projects\Burse\Burse\obj\Debug\Burse.Properties.Resources.resources
+E:\C# Projects\Burse\Burse\obj\Debug\Burse.csproj.GenerateResource.Cache
+E:\C# Projects\Burse\Burse\obj\Debug\Burse.exe
+E:\C# Projects\Burse\Burse\obj\Debug\Burse.pdb

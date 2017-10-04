@@ -27,6 +27,7 @@ namespace Burse
         {
             Finam finam = new Finam();
             TextBlocks.Text = finam.AverageVolForPeriod(DatePickerFrom, DatePickerTo, currentTicker);
+            TextBlocks1.Text = finam.AverageForPeriod(DatePickerFrom, DatePickerTo, currentTicker);
         }
         private void HandleUnchecked_Company(object sender, RoutedEventArgs e)
         {

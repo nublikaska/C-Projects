@@ -57,11 +57,11 @@
                     </LinearGradientBrush>
                 </Menu.Background>
                 <MenuItem Header="Home" Height="50" Width="200" Cursor="Hand" Click="Page1_Click"/>
-                <MenuItem Name="BursePage1" Header="Max/Min котировки дня" Height="50" Width="385" Cursor="Hand" Click="Page2_Click"/>
-                <MenuItem Name="BursePage2" Header="Сред. размер сделок" Height="50" Width="200" Cursor="Hand" Click="Page3_Click"/>
-                <MenuItem Name="BursePage3" Header="Знач. за день в разн. г." Height="50" Width="200" Cursor="Hand" Click="Page4_Click"/>
-                <MenuItem Name="BursePage4" Header="Ср. знач. промежутка" Height="50" Width="200" Cursor="Hand"/>
-                <MenuItem Name="TelegramPage" Header="Telegram бот" Height="50" Width="200" Cursor="Hand" Click="Page6_Click" Background="#FF517594" Foreground="White"/>
+                <MenuItem Name="BursePage1" Header="Max/Min котировки дня" Height="50" Width="368" Cursor="Hand" Click="Page2_Click"/>
+                <MenuItem Name="BursePage2" Header="Сред. размер сделок" Height="50" Width="368" Cursor="Hand" Click="Page3_Click"/>
+                <MenuItem Name="BursePage3" Header="Знач. за день в разн. г." Height="50" Width="368" Cursor="Hand" Click="Page4_Click"/>
+                <MenuItem Name="BursePage4" Header="Ср. знач. промежутка" Height="50" Width="368" Cursor="Hand"/>
+                <MenuItem Name="TelegramPage" Header="Telegram бот" Height="50" Width="368" Cursor="Hand" Click="Page6_Click" Background="#FF517594" Foreground="White"/>
             </Menu>
         </materialDesign:ColorZone>
         <Frame x:Name="Main" NavigationUIVisibility="Hidden" Margin="200,52,0,0"/>

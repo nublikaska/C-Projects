@@ -28,12 +28,12 @@
         <Label Content="Промежуток" HorizontalAlignment="Left" Margin="195,43,0,0" VerticalAlignment="Top"/>
         <Label Content="–" HorizontalAlignment="Left" Margin="299,69,0,0" VerticalAlignment="Top"/>
         <TextBlock x:Name ="CompanyText" Text="Сбербанк" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="19" TextWrapping="Wrap" Margin="213,216,0,0"/>
-        <StackPanel HorizontalAlignment="Left" Height="124" Margin="70,240,0,0" VerticalAlignment="Top" Width="161">
+        <StackPanel HorizontalAlignment="Left" Height="96" Margin="70,240,0,0" VerticalAlignment="Top" Width="161">
             <TextBlock Text="Средний размер акций" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="32" TextWrapping="Wrap"/>
             <TextBlock x:Name="TextBlocks" TextWrapping="Wrap" VerticalAlignment="Top" Height="64" FontSize="48" TextAlignment="Center" Foreground="#FF212121"/>
 
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" Height="124" Margin="371,240,0,0" VerticalAlignment="Top" Width="161">
+        <StackPanel HorizontalAlignment="Left" Height="96" Margin="371,240,0,0" VerticalAlignment="Top" Width="161">
             <TextBlock Text="Среднee количество сделок" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" TextAlignment="Center" Height="32" TextWrapping="Wrap"/>
             <TextBlock x:Name="TextBlocks1" TextWrapping="Wrap" VerticalAlignment="Top" Height="64" FontSize="48" TextAlignment="Center" Foreground="#FF212121"/>
         </StackPanel>
