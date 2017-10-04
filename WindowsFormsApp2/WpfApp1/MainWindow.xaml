@@ -1,0 +1,15 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="794.231">
+    <Grid Margin="0,0,-8,0">
+        <Button x:Name="verage_transaction_for_day" Content="Средний объем сделки" HorizontalAlignment="Left" Margin="35,20,0,0" VerticalAlignment="Top" Width="323" Click="verage_transaction_for_day_Click" Background="#00000000" RenderTransformOrigin="0.5,0.5"/>
+        <Button x:Name="compare" Content="Сравнить средний объем сделки" HorizontalAlignment="Left" Margin="35,45,0,0" VerticalAlignment="Top" Width="325" Background="#00000000" Click="compare_Click"/>
+        <Button x:Name="average_for_period" Content="Среднее количество сделок за период" HorizontalAlignment="Left" Margin="35,70,0,0" VerticalAlignment="Top" Width="325" Background="#00000000" Click="average_for_period_Click"/>
+        <Button x:Name="average_vol_for_period" Content="Средний объем сделки за период" HorizontalAlignment="Left" Margin="35,95,0,0" VerticalAlignment="Top" Width="325" Background="#00000000" Click="average_vol_for_period_Click"/>
+    </Grid>
+</Window>
