@@ -18,7 +18,8 @@
     <Grid Width="603" Height="419" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#00000000">
         <materialDesign:Card Height="111" Margin="20,10,20,0" />
         <materialDesign:Card Height="262" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" Margin="20,0,20,10" >
-            <DataGrid HorizontalAlignment="Left" Height="212" VerticalAlignment="Top" Width="522" Margin="0,40,0,0"/>
+            <DataGrid HorizontalAlignment="Left" Height="212" VerticalAlignment="Top" Width="522" Margin="0,40,0,0"
+                      />
         </materialDesign:Card>
         <Label Name="Coterovki" Content="Котировки Сбербанка за прошлые года в этот день" HorizontalAlignment="Left" Margin="146,154,0,0" VerticalAlignment="Top"/>
         <Button Name="buttonResult"  Content="Найти" HorizontalAlignment="Left" Margin="455,62,0,0" VerticalAlignment="Top" Width="74" Click="Button_Click" Background="#FF673AB7" BorderBrush="#FF673AB7"/>
