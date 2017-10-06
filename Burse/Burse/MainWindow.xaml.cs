@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Drawing.Text;
 using System.Windows.Controls;
 using System.Threading;
+using System.Windows.Threading;
 
 namespace Burse
 {
@@ -20,84 +21,68 @@ namespace Burse
     {
         Finam finam;
         Thread newThread;
+        private delegate void NewDelegate(List<String> result);
 
         public MainWindow()
         {
             InitializeComponent();
             finam = new Finam();
             newThread = new Thread(MethodByThread);
+            newThread.IsBackground = true;
             newThread.Start();
         }
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            //newThread.Start();
+
         }
 
         private void MethodByThread()
         {
             String[] result;
+            NewDelegate newDelegate;
+            List<String> ListResult = new List<string>(); // priceSber volSber BorS_Sber priceGazp volGazp BorS_Gazp
             while (true)
             {
+                ListResult.Clear();
                 result = finam.GetLastVolAndPrice("SBER");
-                RefreshingSber(result);
+                for (int i = 0; i < 3; i++)
+                    ListResult.Add(result[i]);
                 result = finam.GetLastVolAndPrice("GAZP");
-                RefreshingGazp(result);
+                for (int i = 3; i < 6; i++)
+                    ListResult.Add(result[i - 3]);
+                newDelegate = RefreshingSber;
+                newDelegate += RefreshingGazp;
+                if (!CheckAccess())
+                    Dispatcher.Invoke(newDelegate, ListResult);
+                else
+                {
+                    RefreshingSber(ListResult);
+                    RefreshingGazp(ListResult);
+                }
 
                 Thread.Sleep(5000);
             }
         }
 
-        private void RefreshingSber(String[] result)
+        private void RefreshingSber(List<String> result)
         {
-            if (!CheckAccess())
-            {
-                Dispatcher.Invoke(new Action<string>((s) =>
-                {
-                    TextBlockSber.Text = s;
-                    VolSber.Text = s;
-                    if (result[2] == "B")
-                        TextBlockSber.Foreground = System.Windows.Media.Brushes.Green;
-                    else if (result[2] == "S")
-                        TextBlockSber.Foreground = System.Windows.Media.Brushes.Red;
-                }), result[0]);
-            }
-            else
-            {
-                TextBlockSber.Text = result[0];
-                VolSber.Text = result[1];
-                if (result[2] == "B")
-                    TextBlockSber.Foreground = System.Windows.Media.Brushes.Green;
-                else if (result[2] == "S")
-                    TextBlockSber.Foreground = System.Windows.Media.Brushes.Red;
-            }
+            TextBlockSber.Text = result[0];
+            VolSber.Text = result[1];
+            if (result[2] == "B")
+                TextBlockSber.Foreground = System.Windows.Media.Brushes.Green;
+            else if (result[2] == "S")
+                TextBlockSber.Foreground = System.Windows.Media.Brushes.Red;
         }
 
-        private void RefreshingGazp(String[] result)
+        private void RefreshingGazp(List<String> result)
         {
-            if (!CheckAccess())
-            {
-                Dispatcher.Invoke(new Action<string>((s) =>
-                {
-                    TextBlockGazp.Text = s;
-                    VolSber.Text = s;
-                    if (result[2] == "B")
-                        TextBlockGazp.Foreground = System.Windows.Media.Brushes.Green;
-                    else if (result[2] == "S")
-                        TextBlockGazp.Foreground = System.Windows.Media.Brushes.Red;
-                }), result[0]);
-
-                Thread.Sleep(10000);
-            }
-            else
-            {
-                TextBlockGazp.Text = result[0];
-                VolSber.Text = result[1];
-                if (result[2] == "B")
-                    TextBlockGazp.Foreground = System.Windows.Media.Brushes.Green;
-                else if (result[2] == "S")
-                    TextBlockGazp.Foreground = System.Windows.Media.Brushes.Red;
-            }
+            TextBlockGazp.Text = result[3];
+            VolGazp.Text = result[4];
+            if (result[5] == "B")
+                TextBlockGazp.Foreground = System.Windows.Media.Brushes.Green;
+            else if (result[5] == "S")
+                TextBlockGazp.Foreground = System.Windows.Media.Brushes.Red;
         }
         private void HandleCheck(object sender, RoutedEventArgs e)
         {
