@@ -107,8 +107,12 @@ namespace Burse
 
         private string GetItem(string tick, int numberItem)
         {
-            String[] words = tick.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            return words[numberItem];
+            try
+            {
+                String[] words = tick.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                return words[numberItem];
+            }
+            catch { return "error"; }
         }
 
         public string GetTransactionForDay(String Date, String Ticker, String ReturnVolOrCount)
